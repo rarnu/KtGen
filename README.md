@@ -4,7 +4,7 @@
 
 当前可以建立以下项目类型:
 
-1. 可以直接建立部署于 tomcat 的 ktor 项目
+1. 部署于 tomcat 的 ktor 项目
 2. ktnode 项目
 
 ![screenshot](https://raw.githubusercontent.com/rarnu/KtGen/master/screenshot/screenshot.png)
