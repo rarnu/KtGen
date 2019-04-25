@@ -1,0 +1,28 @@
+@file:Suppress("UnsafeCastFromDynamic")
+
+package {{packageName}}
+
+fun main(args: Array<String>) {
+    errorHandler = object : ErrorHandler() {
+        override fun handleRejection(err: String?, promise: dynamic) { }
+        override fun handleException(err: String?) { }
+    }
+    initServer()
+
+    routing("/hello") { req, resp ->
+        resp.type("text/html")
+        resp.sendFile("$__dirname/index.html")
+    }
+
+    routing("/session/increment") { req, resp ->
+        if (req.session.count) {
+            req.session.count += 1
+        } else {
+            req.session.count = 1
+        }
+        resp.send("Counter is ${req.session.count}. Refresh to increment.")
+    }
+
+    startListen(8888)
+}
+

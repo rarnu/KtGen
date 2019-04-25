@@ -1,0 +1,23 @@
+{
+  "name": "{{projectName}}",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "cd web && node {{projectName}}.js"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "kotlin": "^1.3.20",
+    "express": "^4.15.4",
+    "mongodb": "^3.2.3",
+    "body-parser": "^1.15.2",
+    "multer": "^1.4.1",
+    "send-seekable": "^1.0.4",
+    "express-session": "^1.16.1",
+    "request": "^2.88.0",
+    "mysql": "^2.17.1",
+    "nunjucks": "^3.2.0",
+    "crypto": "^1.0.1"
+  }
+}

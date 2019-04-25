@@ -1,0 +1,9 @@
+ktor {
+    deployment {
+        port = 80
+        port = ${?PORT}
+    }
+    application {
+        modules = [ {{packageName}}.ApplicationKt.module ]
+    }
+}
