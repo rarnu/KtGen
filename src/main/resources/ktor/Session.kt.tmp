@@ -1,3 +1,13 @@
 package {{packageName}}
 
-data class {{ProjectName}}Session(val count: Int = 0)
+import com.rarnu.kt.ktor.session
+import io.ktor.application.ApplicationCall
+import io.ktor.util.pipeline.PipelineContext
+import java.util.*
+
+data class {{ProjectName}}Session(val uuid: String)
+
+inline val PipelineContext<*, ApplicationCall>.localSession: {{ProjectName}}Session
+    get() = session {
+        {{ProjectName}}Session(UUID.randomUUID().toString())
+    }

@@ -26,9 +26,8 @@ fun generateKtorProject(path: String, pkgName: String, projName: String, callbac
     File("$basePath/settings.gradle").writeText(Resource.read("ktor/settings.gradle.tmp").replace("{{projectName}}", projName))
 
     // src
-    File("$srcPath/Application.kt").writeText(Resource.read("ktor/Application.kt.tmp").replace("{{packageName}}", pkgName).replace("{{projectName}}", projName))
+    File("$srcPath/Application.kt").writeText(Resource.read("ktor/Application.kt.tmp").replace("{{packageName}}", pkgName).replace("{{projectName}}", projName).replace("{{ProjectName}}", projName.proj()))
     File("$srcPath/Session.kt").writeText(Resource.read("ktor/Session.kt.tmp").replace("{{packageName}}", pkgName).replace("{{ProjectName}}", projName.proj()))
-    File("$srcPath/Plugin.kt").writeText(Resource.read("ktor/Plugin.kt.tmp").replace("{{packageName}}", pkgName).replace("{{ProjectName}}", projName.proj()))
     File("$srcPath/Routing.kt").writeText(Resource.read("ktor/Routing.kt.tmp").replace("{{packageName}}", pkgName).replace("{{ProjectName}}", projName.proj()).replace("{{projectName}}", projName))
 
     // resource

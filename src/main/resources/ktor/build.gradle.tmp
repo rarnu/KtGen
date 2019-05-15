@@ -1,6 +1,8 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
+        mavenLocal()
+        maven { url 'https://kotlin.bintray.com/ktor' }
     }
     
     dependencies {
@@ -21,8 +23,8 @@ sourceSets {
 }
 
 repositories {
+    mavenCentral()
     mavenLocal()
-    jcenter()
     maven { url 'https://kotlin.bintray.com/ktor' }
 }
 
@@ -36,6 +38,7 @@ dependencies {
     compile "io.ktor:ktor-server-host-common:$ktor_version"
     compile "io.ktor:ktor-server-sessions:$ktor_version"
     compile "mysql:mysql-connector-java:8.0.15"
-    compile "com.github.rarnu:common:0.8.1"
+    compile "com.github.rarnu:common:0.9.1"
+    compile "com.github.rarnu:ktor:0.1.3"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }

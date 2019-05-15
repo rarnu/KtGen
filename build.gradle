@@ -8,11 +8,13 @@ repositories {
     google()
     mavenCentral()
     jcenter()
+    mavenLocal()
+    maven { url 'https://kotlin.bintray.com/ktor' }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile "com.github.rarnu:common:0.8.0"
+    compile "com.github.rarnu:common:0.9.1"
 }
 
 mainClassName = 'com.rarnu.ktgen.MainKt'
