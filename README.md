@@ -5,7 +5,8 @@
 当前可以建立以下项目类型:
 
 1. 部署于 tomcat 的 ktor 项目
-2. ktnode 项目
+2. 部署于 nodejs 的 ktnode 项目
+3. 纯前端的 ktjs 项目
 
 ![screenshot](https://raw.githubusercontent.com/rarnu/KtGen/master/screenshot/screenshot.png)
 
