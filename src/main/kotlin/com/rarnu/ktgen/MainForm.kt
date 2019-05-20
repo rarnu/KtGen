@@ -14,6 +14,7 @@ class MainForm : JFrame("KtGen"), ActionListener {
 
     private val pnlKtor: JPanel
     private val pnlKtNode: JPanel
+    private val pnlKtJs: JPanel
 
     // ktor
     private val txtKtorPackage: JTextField
@@ -28,6 +29,12 @@ class MainForm : JFrame("KtGen"), ActionListener {
     private lateinit var txtKtNodeDest: JTextField
     private lateinit var btnKtNodeDest: JButton
     private val btnKtNodeGen: JButton
+
+    // ktjs
+    private val txtKtJsName: JTextField
+    private lateinit var txtKtJsDest: JTextField
+    private lateinit var btnKtJsDest: JButton
+    private val btnKtJsGen: JButton
 
     init {
 
@@ -74,6 +81,7 @@ class MainForm : JFrame("KtGen"), ActionListener {
         defaultCloseOperation = EXIT_ON_CLOSE
         setLocationRelativeTo(null)
 
+        // ktor
         pnlKtor = JPanel(FlowLayout())
         pnlKtor.border = EmptyBorder(8, 8, 8, 8)
 
@@ -85,6 +93,7 @@ class MainForm : JFrame("KtGen"), ActionListener {
         }
         btnKtorGen = buildButton("Generate", pnlKtor)
 
+        // ktnode
         pnlKtNode = JPanel(FlowLayout())
         pnlKtNode.border = EmptyBorder(8, 8, 8, 8)
 
@@ -96,9 +105,21 @@ class MainForm : JFrame("KtGen"), ActionListener {
         }
         btnKtNodeGen = buildButton("Generate", pnlKtNode)
 
+        // ktjs
+        pnlKtJs = JPanel(FlowLayout())
+        pnlKtJs.border = EmptyBorder(8, 8, 8, 8)
+
+        txtKtJsName = buildItem("Project Name", pnlKtJs)
+        buildDestItem("Destination", pnlKtJs) { t, b ->
+            txtKtJsDest = t
+            btnKtJsDest = b
+        }
+        btnKtJsGen = buildButton("Generate", pnlKtJs)
+
         val tab = JTabbedPane()
         tab.addTab("Ktor", pnlKtor)
         tab.addTab("KtNode", pnlKtNode)
+        tab.addTab("KtJs", pnlKtJs)
         tab.selectedIndex = 0
 
         contentPane = tab
@@ -109,8 +130,10 @@ class MainForm : JFrame("KtGen"), ActionListener {
         when(e.source) {
             btnKtorDest -> chooseDir { txtKtorDest.text = it.absolutePath }
             btnKtNodeDest -> chooseDir { txtKtNodeDest.text = it.absolutePath }
+            btnKtJsDest -> chooseDir { txtKtJsDest.text = it.absolutePath }
             btnKtorGen -> generateKtorProject(txtKtorDest.text, txtKtorPackage.text, txtKtorName.text) { JOptionPane.showMessageDialog(this, if (it) "Project generated." else "Generate failed.") }
             btnKtNodeGen -> generateKtNodeProject(txtKtNodeDest.text, txtKtNodePackage.text, txtKtNodeName.text) { JOptionPane.showMessageDialog(this, if (it) "Project generated." else "Generate failed.") }
+            btnKtJsGen -> generateKtJsProject(txtKtJsDest.text, txtKtJsName.text) { JOptionPane.showMessageDialog(this, if (it) "Project generated." else "Generate failed.") }
         }
     }
 
@@ -120,7 +143,9 @@ class MainForm : JFrame("KtGen"), ActionListener {
         chooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
         chooser.showOpenDialog(this)
         val f = chooser.selectedFile
-        callback(f)
+        if (f != null) {
+            callback(f)
+        }
     }
 
 }

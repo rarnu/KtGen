@@ -1,0 +1,24 @@
+<html>
+<head>
+    <script type="text/javascript" src="./lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs.config({
+            paths: {
+                'kotlin': 'lib/kotlin',
+                'kotlinx-html-js': 'lib/kotlinx-html-js',
+                '{{projectName}}': 'scripts/{{projectName}}'
+            }
+        });
+    </script>
+</head>
+<body>
+<div id="root">
+</div>
+
+<script type="text/javascript">
+    requirejs(["{{projectName}}"], function (module) {
+
+    });
+</script>
+</body>
+</html>
