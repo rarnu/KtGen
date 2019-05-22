@@ -15,6 +15,7 @@ class MainForm : JFrame("KtGen"), ActionListener {
     private val pnlKtor: JPanel
     private val pnlKtNode: JPanel
     private val pnlKtJs: JPanel
+    private val pnlKtorReact: JPanel
 
     // ktor
     private val txtKtorPackage: JTextField
@@ -35,6 +36,13 @@ class MainForm : JFrame("KtGen"), ActionListener {
     private lateinit var txtKtJsDest: JTextField
     private lateinit var btnKtJsDest: JButton
     private val btnKtJsGen: JButton
+
+    // ktor-react
+    private val txtKtorReactPackage: JTextField
+    private val txtKtorReactName: JTextField
+    private lateinit var txtKtorReactDest: JTextField
+    private lateinit var btnKtorReactDest: JButton
+    private val btnKtorReactGen: JButton
 
     init {
 
@@ -116,10 +124,23 @@ class MainForm : JFrame("KtGen"), ActionListener {
         }
         btnKtJsGen = buildButton("Generate", pnlKtJs)
 
+        // ktor-react
+        pnlKtorReact = JPanel(FlowLayout())
+        pnlKtorReact.border = EmptyBorder(8, 8, 8, 8)
+
+        txtKtorReactPackage = buildItem("Package Name", pnlKtorReact)
+        txtKtorReactName = buildItem("Project Name", pnlKtorReact)
+        buildDestItem("Destination", pnlKtorReact) { t, b ->
+            txtKtorReactDest = t
+            btnKtorReactDest = b
+        }
+        btnKtorReactGen = buildButton("Generate", pnlKtorReact)
+
         val tab = JTabbedPane()
         tab.addTab("Ktor", pnlKtor)
         tab.addTab("KtNode", pnlKtNode)
         tab.addTab("KtJs", pnlKtJs)
+        tab.addTab("KtorReact", pnlKtorReact)
         tab.selectedIndex = 0
 
         contentPane = tab
@@ -131,9 +152,17 @@ class MainForm : JFrame("KtGen"), ActionListener {
             btnKtorDest -> chooseDir { txtKtorDest.text = it.absolutePath }
             btnKtNodeDest -> chooseDir { txtKtNodeDest.text = it.absolutePath }
             btnKtJsDest -> chooseDir { txtKtJsDest.text = it.absolutePath }
+            btnKtorReactDest -> chooseDir { txtKtorReactDest.text = it.absolutePath }
             btnKtorGen -> generateKtorProject(txtKtorDest.text, txtKtorPackage.text, txtKtorName.text) { JOptionPane.showMessageDialog(this, if (it) "Project generated." else "Generate failed.") }
             btnKtNodeGen -> generateKtNodeProject(txtKtNodeDest.text, txtKtNodePackage.text, txtKtNodeName.text) { JOptionPane.showMessageDialog(this, if (it) "Project generated." else "Generate failed.") }
             btnKtJsGen -> generateKtJsProject(txtKtJsDest.text, txtKtJsName.text) { JOptionPane.showMessageDialog(this, if (it) "Project generated." else "Generate failed.") }
+            btnKtorReactGen -> {
+                btnKtorReactGen.isEnabled = false
+                generateKtorReactProject(txtKtorReactDest.text, txtKtorReactPackage.text, txtKtorReactName.text) {
+                    JOptionPane.showMessageDialog(this, if (it) "Project generated." else "Generate failed.")
+                    btnKtorReactGen.isEnabled = true
+                }
+            }
         }
     }
 

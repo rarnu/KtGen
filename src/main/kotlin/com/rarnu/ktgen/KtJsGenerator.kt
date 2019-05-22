@@ -26,5 +26,8 @@ fun generateKtJsProject(path: String, projName: String, callback:(Boolean) -> Un
     File("$resourcesPath/index.html").writeText(Resource.read("ktjs/index.html.tmp").replace("{{projectName}}", projName))
     File("$srcPath/Main.kt").writeText(Resource.read("ktjs/Main.kt.tmp"))
 
+    File("$resourcesPath/lib/jquery-2.0.0.min.js").writeText(Resource.read("ktjs/jquery-2.0.0.min.js.tmp"))
+    File("$srcPath/jquery.kt").writeText(Resource.read("ktjs/jquery.kt.tmp"))
+
     callback(true)
 }

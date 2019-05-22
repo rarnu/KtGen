@@ -1,0 +1,60 @@
+package app
+
+import kotlinx.html.js.onClickFunction
+import react.*
+import react.dom.*
+import logo.*
+import org.w3c.fetch.*
+import ticker.*
+import kotlin.browser.window
+import kotlin.js.Json
+import kotlin.js.json
+
+class App : RComponent<RProps, RState>() {
+
+    var ret = "Wait for server response"
+    var times = 0
+    var uuid = "0"
+
+    override fun RBuilder.render() {
+        div("App-header") {
+            logo()
+            h2 {
+                +"Welcome to {{projectName}}"
+            }
+        }
+        p("App-intro") {
+            +"To get started, edit "
+            code { +"app/App.kt" }
+            +" and save to reload."
+        }
+        p("App-ticker") {
+            ticker()
+        }
+        p() {
+            +"$ret, times:$times, user:$uuid"
+        }
+        button {
+            +"Click"
+            attrs {
+                onClickFunction = {
+                    window.fetch("/hello", object : RequestInit {
+                        override var method: String? = "GET"
+                        override var headers: dynamic = json("Accept" to "application/json")
+                    }).then {
+                        it.json()
+                    }.then {
+                        val j = it.unsafeCast<Json>()
+                        setState {
+                            ret = j["result"] as String
+                            times = j["times"] as Int
+                            uuid = j["uuid"] as String
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+fun RBuilder.app() = child(App::class) {}

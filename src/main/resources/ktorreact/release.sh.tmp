@@ -1,0 +1,5 @@
+#!/bin/sh
+
+gradle :frontend:frontBuild
+gradle :backend:build
+

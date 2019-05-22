@@ -1,0 +1,22 @@
+{
+  "name": "{{projectName}}-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "secure":false,
+  "proxy": "http://0.0.0.0:80",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "react-scripts-kotlin": "3.0.3"
+  },
+  "scripts": {
+    "start": "react-scripts-kotlin start",
+    "build": "react-scripts-kotlin build",
+    "eject": "react-scripts-kotlin eject",
+    "gen-idea-libs": "react-scripts-kotlin gen-idea-libs",
+    "get-types": "react-scripts-kotlin get-types --dest=src/types",
+    "postinstall": "npm run gen-idea-libs"
+  }
+}

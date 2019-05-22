@@ -1,0 +1,45 @@
+buildscript {
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+        maven { url 'https://kotlin.bintray.com/ktor' }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
+        maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
+        maven { url "http://dl.bintray.com/kotlinx/kotlinx" }
+        maven { url "http://dl.bintray.com/kotlin/kotlin-js-wrappers" }
+    }
+    
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.moowork.gradle:gradle-node-plugin:$node_plugin_version"
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
+    maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
+    maven { url "http://dl.bintray.com/kotlinx/kotlinx" }
+    maven { url "http://dl.bintray.com/kotlin/kotlin-js-wrappers" }
+}
+
+task clean(type: Delete) {
+    delete new File(rootProject.rootDir, "backend/build")
+    delete new File(rootProject.rootDir, "frontend/build")
+    delete rootProject.buildDir
+}
+
+task stop(type: Exec) {
+    commandLine "killall","node","\n","killall","java","\n"
+}
+
+task release(type: Exec) {
+    commandLine "sh", "release.sh"
+}

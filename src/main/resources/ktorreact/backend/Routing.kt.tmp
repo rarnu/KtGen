@@ -1,0 +1,14 @@
+package {{packageName}}
+
+import io.ktor.application.call
+import io.ktor.response.respondText
+import io.ktor.routing.Routing
+import io.ktor.routing.get
+
+fun Routing.{{projectName}}Routing() {
+    get("/hello") {
+        val ses = localSession
+        ses.times += 1
+        call.respondText{ "{\"result\": \"callback from server\", \"uuid\":\"${ses.uuid}\", \"times\": ${ses.times}}" }
+    }
+}
