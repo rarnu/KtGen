@@ -13,17 +13,28 @@
 
 - - -
 
-编译(需要 gradle 4.6 或以上):
+编译(需要 gradle 5.4 或以上):
 
-```
+```shell
 $ git clone git@github.com:rarnu/KtGen.git
 $ cd KtGen
-$ gradle build
+$ ./build.sh
 ```
 
-可以在 ```build/libs``` 下找到名为 ```ktgen.jar``` 的文件，以 jar 方式运行之即可:
+可以在 ```release``` 目录下编译结果，编译后包含 ```ktgen.jar``` 和 ```ktgen```。
 
-```
+```ktgen.jar``` 是可视化程序，使用以下方法启动之:
+
+```shell
 $ java -jar ktgen.jar
+```
+
+```ktgen``` 是命令行程序，使用以下命令来创建项目:
+
+```shell
+$ ktgen ktor --package <package> --name <name> --output <output>
+$ ktgen ktnode --package <package> --name <name> --output <output>
+$ ktgen kjs --name <name> --output <output>
+$ ktgen react --package <package> --name <name> --output <output>
 ```
 
