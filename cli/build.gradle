@@ -1,23 +1,55 @@
 plugins {
-    id 'kotlin-multiplatform' version '1.3.21'
+    id 'kotlin-multiplatform' version '1.3.31'
 }
+
+group 'com.rarnu.ktgen.cli'
+version '0.1.1'
+
 repositories {
+    jcenter()
     mavenCentral()
 }
+
 kotlin {
 
     macosX64("macos") {
-        compilations.main {
-            outputKinds("executable")
-            entryPoint 'main'
+        binaries {
+            executable {
+                entryPoint "main"
+            }
+        }
+    }
+
+    linuxX64("linux") {
+        binaries {
+            executable {
+                entryPoint "main"
+            }
+        }
+    }
+    mingwX64("mingw") {
+        binaries {
+            executable {
+                entryPoint "main"
+            }
         }
     }
 
     sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+            }
+        }
         macosMain {
-            kotlin.srcDir('src')
-            resources.srcDir('res')
+
+        }
+
+        linuxMain {
+
+        }
+        mingwMain {
+
         }
     }
-
 }
