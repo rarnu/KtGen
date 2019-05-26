@@ -2,7 +2,13 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toKString
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.runBlocking
 import platform.posix.*
+import kotlin.coroutines.CoroutineContext
+
+actual val osName: String get() = "Linux"
+actual fun <T> coroutine (context: CoroutineContext, block: suspend CoroutineScope.() -> T) = runBlocking(context, block)
 
 actual val exePath: String get() {
     memScoped {
@@ -13,21 +19,4 @@ actual val exePath: String get() {
         if (res < 1) throw RuntimeException("/proc/$myPid/exe failed: $res")
         return pathBuf.toKString()
     }
-}
-
-actual fun runCommand(cmd: String) = memScoped {
-    var ret = ""
-    var err = ""
-    val size = 1024
-    val buf = allocArray<ByteVar>(size)
-    val fst = popen(cmd, "r")
-    if (fst != null) {
-        while (fgets(buf, size, fst) != null) {
-            ret += buf.toKString()
-        }
-    } else {
-        err = strerror(errno)?.toKString() ?: ""
-    }
-    pclose(fst)
-    CommandResult(ret, err)
 }

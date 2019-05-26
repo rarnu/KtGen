@@ -15,13 +15,21 @@ fun main(args: Array<String>) {
         val mode = args[0]
         when(mode) {
             // ktor
-            "1" -> generateKtorProject(args[3], args[1], args[2]) { println(if (it) "done!" else "error!") }
+            "1" -> generateKtorProject(args[3], args[1], args[2]) { printResult(it) }
             // knode
-            "2" -> generateKtNodeProject(args[3], args[1], args[2]) { println(if (it) "done!" else "error!") }
+            "2" -> generateKtNodeProject(args[3], args[1], args[2]) { printResult(it) }
             // ktjs
-            "3" -> generateKtJsProject(args[2], args[1]) { println(if (it) "done!" else "error!") }
+            "3" -> generateKtJsProject(args[2], args[1]) { printResult(it) }
             // ktor + react
-            "4" -> generateKtorReactProject(args[3], args[1], args[2]) { println(if (it) "done!" else "error!") }
+            "4" -> generateKtorReactProject(args[3], args[1], args[2]) { printResult(it) }
+            // kotlin/native
+            "5" -> generateNativeProject(args[2], args[1]) { printResult(it) }
+            // kni
+            "6" -> {
+
+            }
         }
     }
 }
+
+private fun printResult(succ: Boolean) = println(if (succ) "done!" else "error!")

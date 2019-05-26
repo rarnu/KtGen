@@ -1,0 +1,80 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+        maven { url 'https://kotlin.bintray.com/ktor' }
+        maven { url 'https://kotlin.bintray.com/kotlinx' }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$serialization_version"
+    }
+}
+
+apply plugin: "org.jetbrains.kotlin.multiplatform"
+apply plugin: 'kotlinx-serialization'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+    maven { url 'https://kotlin.bintray.com/kotlinx' }
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+kotlin {
+
+    macosX64("macos") {
+        binaries {
+            executable {
+                linkerOpts "-L/usr/lib -liconv"
+                entryPoint "main"
+            }
+        }
+    }
+
+    /*
+    linuxX64("linux") {
+        binaries {
+            executable {
+                linkerOpts "-L/usr/lib -liconv"
+                entryPoint "main"
+            }
+        }
+    }
+     */
+
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+                implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.2.1'
+                implementation 'io.ktor:ktor-client-core:1.2.0'
+                implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0'
+            }
+        }
+        macosMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.2.1'
+                implementation 'io.ktor:ktor-client-curl:1.2.0'
+                implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.11.0'
+            }
+        }
+
+        /*
+        linuxMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.2.1'
+                implementation 'io.ktor:ktor-client-curl:1.2.0'
+                implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.11.0'
+            }
+        }
+         */
+    }
+}

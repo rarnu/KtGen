@@ -1,12 +1,7 @@
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.toKString
+import kotlinx.cinterop.*
 import platform.osx.PROC_PIDPATHINFO_MAXSIZE
 import platform.osx.proc_pidpath
-import platform.posix.getpid
-
-actual val name: String get() = "Mac"
+import platform.posix.*
 
 actual val exePath: String get() {
     memScoped {
@@ -19,6 +14,19 @@ actual val exePath: String get() {
     }
 }
 
-actual fun system(args: String) {
-    platform.posix.system(args)
+actual fun runCommand(cmd: String) = memScoped {
+    var ret = ""
+    var err = ""
+    val size = 1024
+    val buf = allocArray<ByteVar>(size)
+    val fst = popen(cmd, "r")
+    if (fst != null) {
+        while (fgets(buf, size, fst) != null) {
+            ret += buf.toKString()
+        }
+    } else {
+        err = strerror(errno)?.toKString() ?: ""
+    }
+    pclose(fst)
+    CommandResult(ret, err)
 }

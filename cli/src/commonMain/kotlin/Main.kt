@@ -1,8 +1,8 @@
 import konclik.*
 
-expect val name: String
+data class CommandResult(val output: String, val error: String)
+expect fun runCommand(cmd: String): CommandResult
 expect val exePath: String
-expect fun system(args: String)
 
 private const val OPT_PACKAGE = "--package"
 private const val OPT_NAME = "--name"
@@ -16,6 +16,7 @@ private val listJsOpt = listOf(paramName, paramOutput)
 private var PATH_JAR = ""
 
 fun main(args: Array<String>) = konclikApp(args) {
+
     PATH_JAR = exePath.substringBeforeLast("/") + "/ktgen.jar"
     metadata {
         name = "KtGen CLI"
@@ -26,8 +27,8 @@ fun main(args: Array<String>) = konclikApp(args) {
     newCommand("ktnode", "Generate Kotlin/Nodejs project", listOpt, 2)
     newCommand("ktjs", "Generate Kotlin/Js project", listJsOpt, 3)
     newCommand("react", "Generate Ktor/React project", listOpt, 4)
-    newCommand("native", "Generate Kotlin/Native project", listOpt, 5)
-    newCommand("jni", "Generate Kotlin/JNI project", listOpt, 6)
+    newCommand("native", "Generate Kotlin/Native project", listJsOpt, 5)
+    newCommand("kni", "Generate Kotlin/JNI project", listOpt, 6)
 }
 
 private fun KonclikAppBuilder.newCommand(cmdName: String, cmdDesc: String, cmdOptions: List<Parameter.Option>, mode: Int) = command {
@@ -45,7 +46,7 @@ private fun checkParam(cmd: Command, mode: Int, param: ParseResult.Parameters, c
     val nameOpt = param.options[OPT_NAME]?.get(0) ?: ""
     val outOpt = param.options[OPT_OUTPUT]?.get(0) ?: ""
     when (mode) {
-        3 -> {
+        3, 5 -> {
             if (nameOpt == "" || outOpt == "") {
                 printError(cmd)
                 return
@@ -65,7 +66,12 @@ private fun checkParam(cmd: Command, mode: Int, param: ParseResult.Parameters, c
 private fun executeGenerator(mode: Int, args: Array<String>) {
     var cmd = "java -jar $PATH_JAR $mode "
     args.forEach { cmd += "\"$it\" " }
-    system(cmd)
+    val ret = runCommand(cmd)
+    if (ret.error == "") {
+        println(ret.output)
+    } else {
+        println("ERROR: ${ret.error}")
+    }
 }
 
 private fun printError(cmd: Command) = println("${cmd.name}: param error")

@@ -8,6 +8,9 @@ version '0.1.1'
 repositories {
     jcenter()
     mavenCentral()
+    mavenLocal()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
 }
 
 kotlin {
@@ -27,6 +30,7 @@ kotlin {
             }
         }
     }
+    /*
     mingwX64("mingw") {
         binaries {
             executable {
@@ -34,6 +38,7 @@ kotlin {
             }
         }
     }
+     */
 
     sourceSets {
         commonMain {
@@ -48,8 +53,10 @@ kotlin {
         linuxMain {
 
         }
+        /*
         mingwMain {
 
         }
+         */
     }
 }
