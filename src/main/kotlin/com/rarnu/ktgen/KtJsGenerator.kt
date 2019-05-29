@@ -18,12 +18,12 @@ fun generateKtJsProject(path: String, projName: String, callback:(Boolean) -> Un
     File(resourcesPath).mkdirs()
     File("$resourcesPath/lib").mkdirs()
 
-    File("$basePath/build.gradle").writeText(Resource.read("ktjs/build.gradle.tmp").replace("{{projectName}}", projName))
-    File("$basePath/settings.gradle").writeText(Resource.read("ktjs/settings.gradle.tmp").replace("{{projectName}}", projName))
+    File("$basePath/build.gradle").writeText(Resource.read("ktjs/build.gradle.tmp").replaceTag("\"{{projectName}}\"") { projName })
+    File("$basePath/settings.gradle").writeText(Resource.read("ktjs/settings.gradle.tmp").replaceTag("{{projectName}}") { projName })
     File("$basePath/gradle.properties").writeText(Resource.read("ktjs/gradle.properties.tmp"))
 
     File("$resourcesPath/lib/require.js").writeText(Resource.read("ktjs/require.js.tmp"))
-    File("$resourcesPath/index.html").writeText(Resource.read("ktjs/index.html.tmp").replace("{{projectName}}", projName))
+    File("$resourcesPath/index.html").writeText(Resource.read("ktjs/index.html.tmp").replaceTag("{{projectName}}") { projName })
     File("$srcPath/Main.kt").writeText(Resource.read("ktjs/Main.kt.tmp"))
 
     File("$resourcesPath/lib/jquery-2.0.0.min.js").writeText(Resource.read("ktjs/jquery-2.0.0.min.js.tmp"))

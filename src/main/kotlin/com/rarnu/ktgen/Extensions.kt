@@ -17,3 +17,7 @@ fun String.superReplace(keys: Array<String>, replacement: Array<String>): String
     }
     return ret
 }
+
+fun String.replaceTag(tag: String, block:() -> String) = replace(tag, block())
+
+fun String.block(block:() -> Unit) = this
