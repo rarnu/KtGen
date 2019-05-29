@@ -21,14 +21,12 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
 
     File("$basePath/settings.gradle").writeText(Resource.read("kni/settings.gradle.tmp").replace("{{projectName}}", projName))
     File("$basePath/gradle.properties").writeText(
-        Resource.read("kni/gradle.properties.tmp")
-            .replace("{{serialization_version}}", if (hasSerialization) "serialization_version=1.3.30" else "")
-            .replace("{{block_maven_publish}}", if (hasMaven) "nexusUploadUrl=\n" +
-                    "nexusAccount=\n" +
-                    "nexusPassword=" else "")
-            .replace("{{block_signing}}", if (hasSigning) "signing.keyId=\n" +
-                    "signing.password=\n" +
-                    "signing.secretKeyRingFile=" else "")
+        Resource.read("kni/gradle.properties.tmp").superReplace(
+            arrayOf("{{serialization_version}}", "{{block_maven_publish}}", "{{block_signing}}"),
+            arrayOf(hasSerialization, hasMaven, hasSigning),
+            arrayOf("serialization_version=1.3.30", "nexusUploadUrl=\nnexusAccount=\nnexusPassword=", "signing.keyId=\nsigning.password=\nsigning.secretKeyRingFile="),
+            arrayOf("", "", "")
+        )
     )
     File("$srcPath/commonMain/kotlin").mkdirs()
     File("$srcPath/commonMain/resources").mkdirs()
@@ -38,7 +36,6 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
     buildStr = buildStr.replace("{{package}}", pkgName)
     buildStr = buildStr.replace("{{classpath_serialization}}", if (hasSerialization) "classpath \"org.jetbrains.kotlin:kotlin-serialization:\$serialization_version\"" else "")
     buildStr = buildStr.replace("{{plugin_serialization}}", if (hasSerialization) "apply plugin: 'kotlinx-serialization'" else "")
-
 
     buildStr = buildStr.replace("{{maven_publish}}", if (hasMaven) "apply plugin: 'maven-publish'" else "")
     buildStr = buildStr.replace(
@@ -138,13 +135,14 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
     val hasAndroidArm64Static = targets.contains(IDX_ANDROID_ARM64_STATIC)
     val hasAndroidArm64Executable = targets.contains(IDX_ANDROID_ARM64_EXECUTABLE)
     if (hasAndroidArm64Shared || hasAndroidArm64Static || hasAndroidArm64Executable) {
-        buildStr = buildStr.replace("{{target_android_arm64}}", targetTemplate
-            .replace("{{targetName}}", "androidNativeArm64")
-            .replace("{{target}}", "android64")
-            .replace("{{shared}}", if (hasAndroidArm64Shared) "sharedLib {}" else "")
-            .replace("{{static}}", if (hasAndroidArm64Static) "staticLib {}" else "")
-            .replace("{{executable}}", if (hasAndroidArm64Executable) "executable { entryPoint 'main' }" else "")
-            .replace("{{framework}}", "")
+        buildStr = buildStr.replace(
+            "{{target_android_arm64}}", targetTemplate
+                .replace("{{targetName}}", "androidNativeArm64")
+                .replace("{{target}}", "android64")
+                .replace("{{shared}}", if (hasAndroidArm64Shared) "sharedLib {}" else "")
+                .replace("{{static}}", if (hasAndroidArm64Static) "staticLib {}" else "")
+                .replace("{{executable}}", if (hasAndroidArm64Executable) "executable { entryPoint 'main' }" else "")
+                .replace("{{framework}}", "")
         )
 
         buildStr = buildStr.replace(
@@ -157,13 +155,19 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
         )
         File("$srcPath/android64Main/kotlin").mkdirs()
         File("$srcPath/android64Main/resources").mkdirs()
-        File("$srcPath/android64Main/kotlin/Actual.kt").writeText(Resource.read("kni/Actual.kt.tmp").replace("{{os_name}}", "JVM")
-            .replace("{{block_special}}", "@CName(\"Java_${pkgName.replace(".", "_")}_HelloJni_hello\")\n" +
-                    "fun jniHello(env: CPointer<JNIEnvVar>, thiz: jobject): jstring = memScoped {\n" +
-                    "    return env.pointed.pointed!!.NewStringUTF!!.invoke(env, hello().cstr.ptr)!!\n" +
-                    "}")
-            .replace("{{import}}", "import kotlinx.cinterop.*\n" +
-                    "import platform.android.*"))
+        File("$srcPath/android64Main/kotlin/Actual.kt").writeText(
+            Resource.read("kni/Actual.kt.tmp").replace("{{os_name}}", "JVM")
+                .replace(
+                    "{{block_special}}", "@CName(\"Java_${pkgName.replace(".", "_")}_HelloJni_hello\")\n" +
+                            "fun jniHello(env: CPointer<JNIEnvVar>, thiz: jobject): jstring = memScoped {\n" +
+                            "    return env.pointed.pointed!!.NewStringUTF!!.invoke(env, hello().cstr.ptr)!!\n" +
+                            "}"
+                )
+                .replace(
+                    "{{import}}", "import kotlinx.cinterop.*\n" +
+                            "import platform.android.*"
+                )
+        )
     } else {
         buildStr = buildStr.replace("{{target_android_arm64}}", "")
         buildStr = buildStr.replace("{{source_android_arm64}}", "")
@@ -203,7 +207,6 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
     // raspberry pi
 
     // web assembly
-
 
     File("$basePath/build.gradle").writeText(buildStr)
     callback(true)

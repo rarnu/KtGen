@@ -26,9 +26,15 @@ fun generateKtorProject(path: String, pkgName: String, projName: String, callbac
     File("$basePath/settings.gradle").writeText(Resource.read("ktor/settings.gradle.tmp").replace("{{projectName}}", projName))
 
     // src
-    File("$srcPath/Application.kt").writeText(Resource.read("ktor/Application.kt.tmp").replace("{{packageName}}", pkgName).replace("{{projectName}}", projName).replace("{{ProjectName}}", projName.proj()))
-    File("$srcPath/Session.kt").writeText(Resource.read("ktor/Session.kt.tmp").replace("{{packageName}}", pkgName).replace("{{ProjectName}}", projName.proj()))
-    File("$srcPath/Routing.kt").writeText(Resource.read("ktor/Routing.kt.tmp").replace("{{packageName}}", pkgName).replace("{{ProjectName}}", projName.proj()).replace("{{projectName}}", projName))
+    File("$srcPath/Application.kt").writeText(Resource.read("ktor/Application.kt.tmp").superReplace(
+        arrayOf("{{packageName}}", "{{projectName}}", "{{ProjectName}}"), arrayOf(pkgName, projName, projName.proj())
+    ))
+    File("$srcPath/Session.kt").writeText(Resource.read("ktor/Session.kt.tmp").superReplace(
+        arrayOf("{{packageName}}", "{{ProjectName}}"), arrayOf(pkgName, projName.proj())
+    ))
+    File("$srcPath/Routing.kt").writeText(Resource.read("ktor/Routing.kt.tmp").superReplace(
+        arrayOf("{{packageName}}", "{{ProjectName}}", "{{projectName}}"), arrayOf(pkgName, projName.proj(), projName)
+    ))
 
     // resource
     File("$resourcesPath/application.conf").writeText(Resource.read("ktor/application.conf.tmp").replace("{{packageName}}", pkgName))

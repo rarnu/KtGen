@@ -25,9 +25,15 @@ fun generateKtorReactProject(path: String, pkgName: String, projName: String, ca
     File("$backPath/build.gradle").writeText(Resource.read("ktorreact/backend/build.gradle.tmp").replace("{{projectName}}", projName))
     File("$backPath/resources/application.conf").writeText(Resource.read("ktorreact/backend/application.conf.tmp").replace("{{packageName}}", pkgName))
     File("$backPath/resources/logback.xml").writeText(Resource.read("ktorreact/backend/logback.xml.tmp"))
-    File("$backPath/src/Application.kt").writeText(Resource.read("ktorreact/backend/Application.kt.tmp").replace("{{packageName}}", pkgName).replace("{{projectName}}", projName).replace("{{ProjectName}}", projName.proj()))
-    File("$backPath/src/Routing.kt").writeText(Resource.read("ktorreact/backend/Routing.kt.tmp").replace("{{packageName}}", pkgName).replace("{{ProjectName}}", projName.proj()).replace("{{projectName}}", projName))
-    File("$backPath/src/Session.kt").writeText(Resource.read("ktorreact/backend/Session.kt.tmp").replace("{{packageName}}", pkgName).replace("{{ProjectName}}", projName.proj()))
+
+    File("$backPath/src/Application.kt").writeText(Resource.read("ktorreact/backend/Application.kt.tmp").superReplace(
+        arrayOf("{{packageName}}", "{{projectName}}", "{{ProjectName}}"), arrayOf(pkgName, projName, projName.proj())))
+    File("$backPath/src/Routing.kt").writeText(Resource.read("ktorreact/backend/Routing.kt.tmp").superReplace(
+        arrayOf("{{packageName}}", "{{ProjectName}}", "{{projectName}}"), arrayOf(pkgName, projName.proj(), projName)
+    ))
+    File("$backPath/src/Session.kt").writeText(Resource.read("ktorreact/backend/Session.kt.tmp").superReplace(
+        arrayOf("{{packageName}}", "{{ProjectName}}"), arrayOf(pkgName, projName.proj())
+    ))
 
     // frontend
     File("$frontPath/public").mkdirs()
