@@ -23,10 +23,8 @@ fun main(args: Array<String>) {
             // ktor + react
             "4" -> generateKtorReactProject(args[3], args[1], args[2]) { printResult(it) }
             // kotlin/native
-            "5" -> generateNativeProject(args[2], args[1]) { printResult(it) }
-            // kni
-            "6" -> {
-
+            "5" -> {
+                // TODO:
             }
         }
     }

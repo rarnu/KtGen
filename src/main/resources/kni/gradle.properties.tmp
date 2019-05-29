@@ -1,0 +1,5 @@
+kotlin.code.style=official
+kotlin_version=1.3.31
+{{serialization_version}}
+{{block_maven_publish}}
+{{block_signing}}

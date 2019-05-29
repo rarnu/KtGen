@@ -1,0 +1,7 @@
+expect val osName: String
+
+fun hello() = "Hello from $osName"
+
+fun main(args: Array<String>) {
+    println(hello())
+}

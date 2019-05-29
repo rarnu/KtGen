@@ -1,0 +1,3 @@
+{{import}}
+actual val osName: String get() = "{{os_name}}"
+{{block_special}}

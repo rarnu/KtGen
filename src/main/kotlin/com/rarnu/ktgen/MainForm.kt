@@ -16,7 +16,7 @@ class MainForm : JFrame("KtGen"), ActionListener {
     private val pnlKtNode: JPanel
     private val pnlKtJs: JPanel
     private val pnlKtorReact: JPanel
-    private val pnlNative: JPanel
+    private val pnlKni: JPanel
 
     // ktor
     private val txtKtorPackage: JTextField
@@ -45,11 +45,12 @@ class MainForm : JFrame("KtGen"), ActionListener {
     private lateinit var btnKtorReactDest: JButton
     private val btnKtorReactGen: JButton
 
-    // kotlin/native
-    private val txtNativeName: JTextField
-    private lateinit var txtNativeDest: JTextField
-    private lateinit var btnNativeDest: JButton
-    private val btnNativeGen: JButton
+    // kni
+    private val txtKniPackage: JTextField
+    private val txtKniName: JTextField
+    private lateinit var txtKniDest: JTextField
+    private lateinit var btnKniDest: JButton
+    private val btnKniGen: JButton
 
     init {
 
@@ -84,7 +85,7 @@ class MainForm : JFrame("KtGen"), ActionListener {
         }
         fun buildButton(txt: String, parent: JPanel): JButton {
             val btn = JButton(txt)
-            btn.preferredSize = Dimension(100, 28)
+            btn.preferredSize = Dimension(200, 28)
             btn.addActionListener(this)
             parent.add(btn)
             return btn
@@ -144,21 +145,22 @@ class MainForm : JFrame("KtGen"), ActionListener {
         btnKtorReactGen = buildButton("Generate", pnlKtorReact)
 
         // kotlin/native
-        pnlNative = JPanel(FlowLayout())
-        pnlNative.border = EmptyBorder(8, 8, 8, 8)
-        txtNativeName = buildItem("Project Name", pnlNative)
-        buildDestItem("Destination", pnlNative) { t, b ->
-            txtNativeDest = t
-            btnNativeDest = b
+        pnlKni = JPanel(FlowLayout())
+        pnlKni.border = EmptyBorder(8, 8, 8, 8)
+        txtKniPackage = buildItem("Package Name", pnlKni)
+        txtKniName = buildItem("Project Name", pnlKni)
+        buildDestItem("Destination", pnlKni) { t, b ->
+            txtKniDest = t
+            btnKniDest = b
         }
-        btnNativeGen = buildButton("Generate", pnlNative)
+        btnKniGen = buildButton("Select Target & Generate", pnlKni)
 
         val tab = JTabbedPane()
         tab.addTab("Ktor", pnlKtor)
         tab.addTab("KtNode", pnlKtNode)
         tab.addTab("KtJs", pnlKtJs)
         tab.addTab("KtorReact", pnlKtorReact)
-        tab.addTab("Native", pnlNative)
+        tab.addTab("Native", pnlKni)
         tab.selectedIndex = 0
 
         contentPane = tab
@@ -171,7 +173,8 @@ class MainForm : JFrame("KtGen"), ActionListener {
             btnKtNodeDest -> chooseDir { txtKtNodeDest.text = it.absolutePath }
             btnKtJsDest -> chooseDir { txtKtJsDest.text = it.absolutePath }
             btnKtorReactDest -> chooseDir { txtKtorReactDest.text = it.absolutePath }
-            btnNativeDest -> chooseDir { txtNativeDest.text = it.absolutePath }
+            btnKniDest -> chooseDir { txtKniDest.text = it.absolutePath }
+
             btnKtorGen -> generateKtorProject(txtKtorDest.text, txtKtorPackage.text, txtKtorName.text) { showGenerateResult(it) }
             btnKtNodeGen -> generateKtNodeProject(txtKtNodeDest.text, txtKtNodePackage.text, txtKtNodeName.text) { showGenerateResult(it) }
             btnKtJsGen -> generateKtJsProject(txtKtJsDest.text, txtKtJsName.text) { showGenerateResult(it) }
@@ -182,7 +185,7 @@ class MainForm : JFrame("KtGen"), ActionListener {
                     btnKtorReactGen.isEnabled = true
                 }
             }
-            btnNativeGen -> generateNativeProject(txtNativeDest.text, txtNativeName.text) { showGenerateResult(it) }
+            btnKniGen -> selectTarget(this) { t -> generateKniProject(txtKniDest.text, txtKniPackage.text, txtKniName.text, t) { showGenerateResult(it) } }
         }
     }
 

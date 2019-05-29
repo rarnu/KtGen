@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'https://kotlin.bintray.com/ktor' }
+        maven { url 'https://kotlin.bintray.com/kotlinx' }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        {{classpath_serialization}}
+    }
+}
+
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
+{{plugin_serialization}}
+{{maven_publish}}
+{{signing}}
+
+group '{{package}}'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+    maven { url 'https://kotlin.bintray.com/kotlinx' }
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+kotlin {
+    {{target_js}}
+    {{target_jvm}}
+    {{target_android_arm64}}
+    {{target_android_arm32}}
+    {{target_ios_arm64}}
+    {{target_ios_arm32}}
+    {{target_ios_emu}}
+    {{target_macos}}
+    {{target_linux}}
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+                {{impl_serialization}}
+                {{impl_ktorclient}}
+                {{impl_coroutines}}
+            }
+        }
+        {{source_js}}
+        {{source_jvm}}
+        {{source_android_arm64}}
+        {{source_android_arm32}}
+        {{source_ios_arm64}}
+        {{source_ios_arm32}}
+        {{source_ios_emu}}
+        {{source_macos}}
+        {{source_linux}}
+
+
+    }
+}
+
+{{block_signing}}
+{{block_publishing}}
