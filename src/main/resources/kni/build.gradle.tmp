@@ -40,6 +40,11 @@ kotlin {
     {{target_ios_emu}}
     {{target_macos}}
     {{target_linux}}
+    {{target_linux_mips}}
+    {{target_linux_mipsel}}
+    {{target_raspberry}}
+    {{target_windows}}
+    {{target_wasm32}}
 
     sourceSets {
         commonMain {
@@ -59,8 +64,11 @@ kotlin {
         {{source_ios_emu}}
         {{source_macos}}
         {{source_linux}}
-
-
+        {{source_linux_mips}}
+        {{source_linux_mipsel}}
+        {{source_raspberry}}
+        {{source_windows}}
+        {{source_wasm32}}
     }
 }
 

@@ -20,4 +20,17 @@ fun String.superReplace(keys: Array<String>, replacement: Array<String>): String
 
 fun String.replaceTag(tag: String, block:() -> String) = replace(tag, block())
 
-fun String.block(block:() -> Unit) = this
+fun String.block(block:() -> Unit): String {
+    block()
+    return this
+}
+
+data class ElseBlock(val condition: Boolean, val str: String)
+fun String.ifBlock(condition: Boolean, block: String.() -> String) = ElseBlock(condition, if (condition) block(this) else this)
+fun ElseBlock.elseBlock(block: String.() -> String) = if (!condition) block(str) else str
+
+fun String.skipEmptyLine(): String {
+    val list = mutableListOf<String>()
+    lines().filterNot { it.trim() == "" }.mapTo(list) { it }
+    return list.joinToString("\n")
+}
