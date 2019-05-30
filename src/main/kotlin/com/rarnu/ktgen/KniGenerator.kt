@@ -359,7 +359,7 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
                     }.replaceTag("{{impl_ktorclient}}") {
                         if (hasKtorclient) "implementation 'io.ktor:ktor-client-ios:1.2.1'" else ""
                     }.replaceTag("{{impl_coroutines}}") {
-                        if (hasCoroutines) "implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-iosarm64:1.2.1'" else ""
+                        if (hasCoroutines) "implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.2.1'" else ""
                     }
             }.block {
                 File("$srcPath/ios64Main/kotlin").mkdirs()
@@ -409,7 +409,7 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
                     }.replaceTag("{{impl_ktorclient}}") {
                         if (hasKtorclient) "implementation 'io.ktor:ktor-client-ios:1.2.1'" else ""
                     }.replaceTag("{{impl_coroutines}}") {
-                        if (hasCoroutines) "implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-iosarm32:1.2.1'" else ""
+                        if (hasCoroutines) "implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.2.1'" else ""
                     }
             }.block {
                 File("$srcPath/ios32Main/kotlin").mkdirs()
@@ -459,7 +459,7 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
                     }.replaceTag("{{impl_ktorclient}}") {
                         if (hasKtorclient) "implementation 'io.ktor:ktor-client-ios:1.2.1'" else ""
                     }.replaceTag("{{impl_coroutines}}") {
-                        if (hasCoroutines) "implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-iosx64:1.2.1'" else ""
+                        if (hasCoroutines) "implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.2.1'" else ""
                     }
             }.block {
                 File("$srcPath/iosemuMain/kotlin").mkdirs()
