@@ -1,5 +1,8 @@
 package com.rarnu.ktgen
 
+import com.rarnu.common.Resource
+import com.rarnu.common.replaceTag
+import com.rarnu.common.toTitleUpperCase
 import java.io.File
 
 fun generateKtorProject(path: String, pkgName: String, projName: String, callback: (Boolean) -> Unit) {
@@ -40,21 +43,21 @@ fun generateKtorProject(path: String, pkgName: String, projName: String, callbac
         }.replaceTag("{{projectName}}") {
             projName
         }.replaceTag("{{ProjectName}}") {
-            projName.proj()
+            projName.toTitleUpperCase()
         }
     )
     File("$srcPath/Session.kt").writeText(Resource.read("ktor/Session.kt.tmp")
         .replaceTag("{{packageName}}") {
             pkgName
         }.replaceTag("{{ProjectName}}") {
-            projName.proj()
+            projName.toTitleUpperCase()
         }
     )
     File("$srcPath/Routing.kt").writeText(Resource.read("ktor/Routing.kt.tmp")
         .replaceTag("{{packageName}}") {
             pkgName
         }.replaceTag("{{ProjectName}}") {
-            projName.proj()
+            projName.toTitleUpperCase()
         }.replaceTag("{{projectName}}") {
             projName
         }

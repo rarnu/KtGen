@@ -1,5 +1,7 @@
 package com.rarnu.ktgen
 
+import com.rarnu.common.Resource
+import com.rarnu.common.replaceTag
 import java.io.File
 
 fun generateKtNodeProject(path: String, pkgName: String, projName: String, callback:(Boolean) -> Unit) {

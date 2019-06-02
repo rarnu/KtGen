@@ -1,6 +1,9 @@
 package com.rarnu.ktgen
 
-import com.rarnu.kt.common.swingMainThread
+import com.rarnu.common.Resource
+import com.rarnu.common.replaceTag
+import com.rarnu.common.toTitleUpperCase
+import com.rarnu.swingfx.swingMainThread
 import java.io.File
 import kotlin.concurrent.thread
 
@@ -40,14 +43,14 @@ fun generateKtorReactProject(path: String, pkgName: String, projName: String, ca
         }.replaceTag("{{projectName}}") {
             projName
         }.replaceTag("{{ProjectName}}") {
-            projName.proj()
+            projName.toTitleUpperCase()
         }
     )
     File("$backPath/src/Routing.kt").writeText(Resource.read("ktorreact/backend/Routing.kt.tmp")
         .replaceTag("{{packageName}}") {
             pkgName
         }.replaceTag("{{ProjectName}}") {
-            projName.proj()
+            projName.toTitleUpperCase()
         }.replaceTag("{{projectName}}") {
             projName
         }
@@ -56,7 +59,7 @@ fun generateKtorReactProject(path: String, pkgName: String, projName: String, ca
         .replaceTag("{{packageName}}") {
             pkgName
         }.replaceTag("{{ProjectName}}") {
-            projName.proj()
+            projName.toTitleUpperCase()
         }
     )
 

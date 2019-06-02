@@ -1,8 +1,10 @@
 package com.rarnu.ktgen
 
+import com.rarnu.common.*
 import java.io.File
 
-val sourceTemplate = "{{target}}Main {\n" +
+
+const val sourceTemplate = "{{target}}Main {\n" +
         "            dependencies {\n" +
         "                {{impl_default}}\n" +
         "                {{impl_serialization}}\n" +
@@ -11,7 +13,7 @@ val sourceTemplate = "{{target}}Main {\n" +
         "            }\n" +
         "        }"
 
-val targetTemplate = "{{targetName}}(\"{{target}}\") {\n" +
+const val targetTemplate = "{{targetName}}(\"{{target}}\") {\n" +
         "        binaries {\n" +
         "            {{shared}}\n" +
         "            {{static}}\n" +
@@ -102,7 +104,7 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
     File("$srcPath/commonMain/resources").mkdirs()
     File("$srcPath/commonMain/kotlin/Main.kt").writeText(Resource.read("kni/Main.kt.tmp"))
 
-    var buildStr = Resource.read("kni/build.gradle.tmp")
+    val buildStr = Resource.read("kni/build.gradle.tmp")
         // build source
         .replaceTag("{{package}}") {
             pkgName

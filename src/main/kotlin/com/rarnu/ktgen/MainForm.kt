@@ -1,5 +1,7 @@
 package com.rarnu.ktgen
 
+import com.rarnu.swingfx.showDirectoryDialog
+import com.rarnu.swingfx.showFileDialog
 import java.awt.*
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
@@ -169,11 +171,11 @@ class MainForm : JFrame("KtGen"), ActionListener {
 
     override fun actionPerformed(e: ActionEvent) {
         when(e.source) {
-            btnKtorDest -> chooseDir { txtKtorDest.text = it.absolutePath }
-            btnKtNodeDest -> chooseDir { txtKtNodeDest.text = it.absolutePath }
-            btnKtJsDest -> chooseDir { txtKtJsDest.text = it.absolutePath }
-            btnKtorReactDest -> chooseDir { txtKtorReactDest.text = it.absolutePath }
-            btnKniDest -> chooseDir { txtKniDest.text = it.absolutePath }
+            btnKtorDest -> showDirectoryDialog { txtKtorDest.text = it.absolutePath }
+            btnKtNodeDest -> showDirectoryDialog { txtKtNodeDest.text = it.absolutePath }
+            btnKtJsDest -> showDirectoryDialog { txtKtJsDest.text = it.absolutePath }
+            btnKtorReactDest -> showDirectoryDialog { txtKtorReactDest.text = it.absolutePath }
+            btnKniDest -> showDirectoryDialog { txtKniDest.text = it.absolutePath }
 
             btnKtorGen -> generateKtorProject(txtKtorDest.text, txtKtorPackage.text, txtKtorName.text) { showGenerateResult(it) }
             btnKtNodeGen -> generateKtNodeProject(txtKtNodeDest.text, txtKtNodePackage.text, txtKtNodeName.text) { showGenerateResult(it) }
@@ -186,17 +188,6 @@ class MainForm : JFrame("KtGen"), ActionListener {
                 }
             }
             btnKniGen -> selectTarget(this) { t -> generateKniProject(txtKniDest.text, txtKniPackage.text, txtKniName.text, t) { showGenerateResult(it) } }
-        }
-    }
-
-    private fun chooseDir(callback: (File) -> Unit) {
-        val chooser = JFileChooser()
-        chooser.currentDirectory = FileSystemView.getFileSystemView().homeDirectory
-        chooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
-        chooser.showOpenDialog(this)
-        val f = chooser.selectedFile
-        if (f != null) {
-            callback(f)
         }
     }
 
