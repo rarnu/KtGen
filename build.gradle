@@ -14,9 +14,8 @@ repositories {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    api "com.rarnu:swingfx-jvm:0.1.0"
-
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "com.rarnu:swingfx-jvm:0.1.0"
 }
 
 mainClassName = 'com.rarnu.ktgen.MainKt'
