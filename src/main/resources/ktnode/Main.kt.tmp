@@ -2,16 +2,28 @@
 
 package {{packageName}}
 
+import com.rarnu.common.*
+import com.rarnu.common.Nunjucks.renderFile
+
 fun main(args: Array<String>) {
     errorHandler = object : ErrorHandler() {
         override fun handleRejection(err: String?, promise: dynamic) { }
         override fun handleException(err: String?) { }
     }
+
     initServer()
 
-    routing("/hello") { req, resp ->
+    routing("/") { _, resp ->
         resp.type("text/html")
-        resp.sendFile("$__dirname/index.html")
+        val html = renderFile("index.html", optionOf("username" to "Kotlin"))
+        resp.send(html)
+    }
+
+    routing("/hello") { req, resp ->
+        val name = req.query.name
+        resp.type("text/html")
+        val html = renderFile("index.html", optionOf("username" to name))
+        resp.send(html)
     }
 
     routing("/session/increment") { req, resp ->

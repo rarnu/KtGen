@@ -16,7 +16,6 @@ class MainForm : JFrame("KtGen"), ActionListener {
 
     private val pnlKtor: JPanel
     private val pnlKtNode: JPanel
-    private val pnlKtJs: JPanel
     private val pnlKtorReact: JPanel
     private val pnlKni: JPanel
 
@@ -33,12 +32,6 @@ class MainForm : JFrame("KtGen"), ActionListener {
     private lateinit var txtKtNodeDest: JTextField
     private lateinit var btnKtNodeDest: JButton
     private val btnKtNodeGen: JButton
-
-    // ktjs
-    private val txtKtJsName: JTextField
-    private lateinit var txtKtJsDest: JTextField
-    private lateinit var btnKtJsDest: JButton
-    private val btnKtJsGen: JButton
 
     // ktor-react
     private val txtKtorReactPackage: JTextField
@@ -123,17 +116,6 @@ class MainForm : JFrame("KtGen"), ActionListener {
         }
         btnKtNodeGen = buildButton("Generate", pnlKtNode)
 
-        // ktjs
-        pnlKtJs = JPanel(FlowLayout())
-        pnlKtJs.border = EmptyBorder(8, 8, 8, 8)
-
-        txtKtJsName = buildItem("Project Name", pnlKtJs)
-        buildDestItem("Destination", pnlKtJs) { t, b ->
-            txtKtJsDest = t
-            btnKtJsDest = b
-        }
-        btnKtJsGen = buildButton("Generate", pnlKtJs)
-
         // ktor-react
         pnlKtorReact = JPanel(FlowLayout())
         pnlKtorReact.border = EmptyBorder(8, 8, 8, 8)
@@ -159,8 +141,7 @@ class MainForm : JFrame("KtGen"), ActionListener {
 
         val tab = JTabbedPane()
         tab.addTab("Ktor", pnlKtor)
-        tab.addTab("KtNode", pnlKtNode)
-        tab.addTab("KtJs", pnlKtJs)
+        tab.addTab("Ktjs", pnlKtNode)
         tab.addTab("KtorReact", pnlKtorReact)
         tab.addTab("Native", pnlKni)
         tab.selectedIndex = 0
@@ -173,13 +154,16 @@ class MainForm : JFrame("KtGen"), ActionListener {
         when(e.source) {
             btnKtorDest -> showDirectoryDialog { txtKtorDest.text = it.absolutePath }
             btnKtNodeDest -> showDirectoryDialog { txtKtNodeDest.text = it.absolutePath }
-            btnKtJsDest -> showDirectoryDialog { txtKtJsDest.text = it.absolutePath }
             btnKtorReactDest -> showDirectoryDialog { txtKtorReactDest.text = it.absolutePath }
             btnKniDest -> showDirectoryDialog { txtKniDest.text = it.absolutePath }
-
             btnKtorGen -> generateKtorProject(txtKtorDest.text, txtKtorPackage.text, txtKtorName.text) { showGenerateResult(it) }
-            btnKtNodeGen -> generateKtNodeProject(txtKtNodeDest.text, txtKtNodePackage.text, txtKtNodeName.text) { showGenerateResult(it) }
-            btnKtJsGen -> generateKtJsProject(txtKtJsDest.text, txtKtJsName.text) { showGenerateResult(it) }
+            btnKtNodeGen -> {
+                btnKtNodeGen.isEnabled = false
+                generateKtNodeProject(txtKtNodeDest.text, txtKtNodePackage.text, txtKtNodeName.text) {
+                    showGenerateResult(it)
+                    btnKtNodeGen.isEnabled = true
+                }
+            }
             btnKtorReactGen -> {
                 btnKtorReactGen.isEnabled = false
                 generateKtorReactProject(txtKtorReactDest.text, txtKtorReactPackage.text, txtKtorReactName.text) {

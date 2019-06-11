@@ -18,12 +18,10 @@ fun main(args: Array<String>) {
             "1" -> generateKtorProject(args[3], args[1], args[2]) { printResult(it) }
             // knode
             "2" -> generateKtNodeProject(args[3], args[1], args[2]) { printResult(it) }
-            // ktjs
-            "3" -> generateKtJsProject(args[2], args[1]) { printResult(it) }
             // ktor + react
-            "4" -> generateKtorReactProject(args[3], args[1], args[2]) { printResult(it) }
+            "3" -> generateKtorReactProject(args[3], args[1], args[2]) { printResult(it) }
             // kotlin/native
-            "5" -> generateKniProject(args[3], args[1], args[2], args[4].split(",").map { it.toInt() }) { printResult(it) }
+            "4" -> generateKniProject(args[3], args[1], args[2], args[4].split(",").map { it.toInt() }) { printResult(it) }
         }
     }
 }

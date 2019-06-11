@@ -114,7 +114,7 @@ fun generateKtorReactProject(path: String, pkgName: String, projName: String, ca
 
     // extract zip
     thread {
-        Resource.extract("ktorreact/node_modules.zip", frontPath)
+        Resource.extract("node_modules.zip", frontPath)
         swingMainThread {
             callback(true)
         }

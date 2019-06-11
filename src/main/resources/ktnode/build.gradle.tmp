@@ -7,11 +7,13 @@ version '1.0.0'
 
 repositories {
     mavenCentral()
+    maven { url 'http://119.3.22.119:8081/repository/maven-public' }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
     testImplementation "org.jetbrains.kotlin:kotlin-test-js"
+    implementation 'com.rarnu:kj-common-js:0.1.0'
 }
 
 compileKotlin2Js {
