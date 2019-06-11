@@ -5,11 +5,9 @@
 当前可以建立以下项目类型:
 
 1. [x] 部署于 tomcat 的 ktor 项目
-2. [x] 部署于 nodejs 的 ktnode 项目
-3. [x] 纯前端的 ktjs 项目
-4. [x] Ktor + KtReact 整合前后端的项目
-5. [ ] Kotlin/Native 项目
-6. [ ] Kotlin/JNI 项目
+2. [x] Kotlin/JS 项目，含 nodejs
+3. [x] Ktor + KtReact 整合前后端的项目
+4. [x] Kotlin/Native 项目
 
 ![screenshot](https://raw.githubusercontent.com/rarnu/KtGen/master/screenshot/screenshot.png)
 
@@ -36,7 +34,6 @@ $ java -jar ktgen.jar
 ```shell
 $ ktgen ktor --package <package> --name <name> --output <output>
 $ ktgen ktnode --package <package> --name <name> --output <output>
-$ ktgen kjs --name <name> --output <output>
 $ ktgen react --package <package> --name <name> --output <output>
+$ ktgen native --package <package> --name <name> --output <output> --feature <1,2,3,4,...>
 ```
-
