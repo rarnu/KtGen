@@ -12,8 +12,7 @@ fun main(args: Array<String>) {
         JDialog.setDefaultLookAndFeelDecorated(true)
         MainForm()
     } else {
-        val mode = args[0]
-        when(mode) {
+        when(args[0]) {
             // ktor
             "1" -> generateKtorProject(args[3], args[1], args[2]) { printResult(it) }
             // knode
