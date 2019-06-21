@@ -24,3 +24,11 @@ fun <T: JComponent> Container.addCenterAlso(comp: T): T {
 fun Container.addWest(comp: Component) = add(comp, BorderLayout.WEST)
 fun Container.addEast(comp: Component) = add(comp, BorderLayout.EAST)
 fun Container.addCenter(comp: Component) = add(comp, BorderLayout.CENTER)
+fun JTabbedPane.addPanel(title: String, panel: JPanel): JTabbedPane {
+    addTab(title, panel)
+    return this
+}
+fun JTabbedPane.setIndex(idx: Int): JTabbedPane {
+    selectedIndex = idx
+    return this
+}

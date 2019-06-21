@@ -19,13 +19,13 @@ class MainForm : JFrame("KtGen") {
         defaultCloseOperation = EXIT_ON_CLOSE
         setLocationRelativeTo(null)
 
-        val tab = JTabbedPane()
-        tab.addTab("Ktor", buildTab(0))
-        tab.addTab("Ktjs", buildTab(1))
-        tab.addTab("KtorReact", buildTab(2))
-        tab.addTab("Native", buildTab(3))
-        tab.selectedIndex = 0
-        contentPane = tab
+        contentPane = JTabbedPane()
+            .addPanel("Ktor", buildTab(0))
+            .addPanel("Ktjs", buildTab(1))
+            .addPanel("KtorReact", buildTab(2))
+            .addPanel("Native", buildTab(3))
+            .setIndex(0)
+
         isVisible = true
     }
 
