@@ -1,6 +1,6 @@
 package {{packageName}}
 
-import com.rarnu.kt.ktor.session
+import com.rarnu.ktor.session
 import io.ktor.application.ApplicationCall
 import io.ktor.util.pipeline.PipelineContext
 import java.util.*

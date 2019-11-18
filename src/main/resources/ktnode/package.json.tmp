@@ -8,6 +8,6 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "kj-common-js": "^0.1.0"
+    "kj-common-js": "^0.2.0"
   }
 }

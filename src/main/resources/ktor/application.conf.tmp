@@ -6,4 +6,18 @@ ktor {
     application {
         modules = [ {{packageName}}.ApplicationKt.module ]
     }
+    security {
+        ssl {
+            keyStore =
+            keyAlias =
+            keyStorePassword =
+            privateKeyPassword =
+        }
+    }
+    database {
+        driver = "com.mysql.cj.jdbc.Driver"
+        url = "jdbc:mysql://localhost:3306/{{ProjectName}}?useUnicode=true&characterEncoding=UTF-8"
+        user = "root"
+        password = "root"
+    }
 }

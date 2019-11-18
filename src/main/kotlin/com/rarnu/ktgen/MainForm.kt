@@ -14,7 +14,7 @@ class MainForm : JFrame("KtGen") {
 
     init {
         contentPane.background = Color.white
-        setSize(500, 210)
+        setSize(550, 210)
         isResizable = false
         defaultCloseOperation = EXIT_ON_CLOSE
         setLocationRelativeTo(null)
@@ -24,6 +24,10 @@ class MainForm : JFrame("KtGen") {
             .addPanel("Ktjs", buildTab(1))
             .addPanel("KtorReact", buildTab(2))
             .addPanel("Native", buildTab(3))
+            .addPanel("Android", buildTab(4))
+            .addPanel("Swing", buildTab(5))
+            .addPanel("iOS", buildTab(6))
+            .addPanel("Common", buildTab(7))
             .setIndex(0)
 
         isVisible = true
@@ -64,6 +68,16 @@ class MainForm : JFrame("KtGen") {
             1 -> generateKtNodeProject(dest, pkg, proj) { callback(it) }
             2 -> generateKtorReactProject(dest, pkg, proj) { callback(it) }
             3 -> selectTarget(this) { t -> generateKniProject(dest, pkg, proj, t) { callback(it) } }
+            4 -> generateAndroidProject(dest, pkg, proj) { callback(it) }
+            5 -> {
+                // swing
+            }
+            6 -> {
+                // ios
+            }
+            7 -> {
+                // common
+            }
         }
     }
 

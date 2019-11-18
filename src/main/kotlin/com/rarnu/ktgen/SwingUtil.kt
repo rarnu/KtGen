@@ -5,7 +5,6 @@ package com.rarnu.ktgen
 import java.awt.*
 import javax.swing.*
 
-inline fun <T: JComponent> component(type: Class<T>, block: T.() -> Unit) = type.newInstance().apply(block)
 inline fun panel(layout: LayoutManager, width: Int = 450, height: Int = 28, block: JPanel.() -> Unit) = JPanel(layout).apply { preferredSize = Dimension(width, height) }.apply(block)
 inline fun label(text: String, width: Int = 100, height: Int = 28, block: JLabel.() -> Unit) = JLabel(text).apply { preferredSize = Dimension(width, height) }.apply(block)
 inline fun textfield(block: JTextField.() -> Unit) = JTextField().apply(block)

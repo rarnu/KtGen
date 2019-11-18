@@ -1,11 +1,11 @@
+@file:Suppress("DuplicatedCode")
+
 package com.rarnu.ktgen
 
 import com.rarnu.common.Resource
 import com.rarnu.common.replaceTag
 import com.rarnu.common.toTitleUpperCase
-import com.rarnu.swingfx.swingMainThread
 import java.io.File
-import kotlin.concurrent.thread
 
 fun generateKtorReactProject(path: String, pkgName: String, projName: String, callback: (Boolean) -> Unit) {
     if (path == "" || pkgName == "" || projName == "") {
@@ -33,6 +33,8 @@ fun generateKtorReactProject(path: String, pkgName: String, projName: String, ca
     File("$backPath/resources/application.conf").writeText(Resource.read("ktorreact/backend/application.conf.tmp")
         .replaceTag("{{packageName}}") {
             pkgName
+        }.replaceTag("{{ProjectName}}") {
+            projName.toTitleUpperCase()
         }
     )
     File("$backPath/resources/logback.xml").writeText(Resource.read("ktorreact/backend/logback.xml.tmp"))
@@ -112,11 +114,5 @@ fun generateKtorReactProject(path: String, pkgName: String, projName: String, ca
         }
     )
 
-    // extract zip
-    thread {
-        Resource.extract("node_modules.zip", frontPath)
-        swingMainThread {
-            callback(true)
-        }
-    }
+    callback(true)
 }

@@ -6,6 +6,7 @@ import javax.swing.UIManager
 import javax.swing.plaf.metal.MetalLookAndFeel
 
 fun main(args: Array<String>) {
+
     if (args.isEmpty()) {
         UIManager.setLookAndFeel(MetalLookAndFeel())
         JFrame.setDefaultLookAndFeelDecorated(true)

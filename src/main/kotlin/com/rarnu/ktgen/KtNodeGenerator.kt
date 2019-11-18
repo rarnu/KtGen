@@ -1,10 +1,10 @@
+@file:Suppress("DuplicatedCode")
+
 package com.rarnu.ktgen
 
 import com.rarnu.common.Resource
 import com.rarnu.common.replaceTag
-import com.rarnu.swingfx.swingMainThread
 import java.io.File
-import kotlin.concurrent.thread
 
 fun generateKtNodeProject(path: String, pkgName: String, projName: String, callback:(Boolean) -> Unit) {
     if (path == "" || pkgName == "" || projName == "") {
@@ -28,12 +28,5 @@ fun generateKtNodeProject(path: String, pkgName: String, projName: String, callb
     File("$basePath/package.json").writeText(Resource.read("ktnode/package.json.tmp").replaceTag("{{projectName}}") { projName })
     File("$resourcesPath/index.html").writeText(Resource.read("ktnode/index.html.tmp"))
     File("$srcPath/Main.kt").writeText(Resource.read("ktnode/Main.kt.tmp").replaceTag("{{packageName}}") { pkgName })
-
-    // extract zip
-    thread {
-        Resource.extract("node_modules.zip", basePath)
-        swingMainThread {
-            callback(true)
-        }
-    }
+    callback(true)
 }

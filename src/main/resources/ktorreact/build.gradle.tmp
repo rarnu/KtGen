@@ -28,6 +28,7 @@ repositories {
     maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
     maven { url "http://dl.bintray.com/kotlinx/kotlinx" }
     maven { url "http://dl.bintray.com/kotlin/kotlin-js-wrappers" }
+    maven { url 'http://119.3.22.119:8081/repository/maven-public' }
 }
 
 task clean(type: Delete) {

@@ -1,6 +1,6 @@
 package {{packageName}}
 
-import com.rarnu.kt.ktor.installPlugin
+import com.rarnu.ktor.installPlugin
 import io.ktor.application.Application
 import io.ktor.http.content.defaultResource
 import io.ktor.http.content.resources

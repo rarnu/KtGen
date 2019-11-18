@@ -1,3 +1,5 @@
+@file:Suppress("DuplicatedCode")
+
 package com.rarnu.ktgen
 
 import com.rarnu.common.Resource
@@ -67,6 +69,8 @@ fun generateKtorProject(path: String, pkgName: String, projName: String, callbac
     File("$resourcesPath/application.conf").writeText(Resource.read("ktor/application.conf.tmp")
         .replaceTag("{{packageName}}") {
             pkgName
+        }.replaceTag("{{ProjectName}}") {
+            projName.toTitleUpperCase()
         }
     )
     File("$resourcesPath/logback.xml").writeText(Resource.read("ktor/logback.xml.tmp"))

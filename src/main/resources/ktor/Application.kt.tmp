@@ -1,6 +1,6 @@
 package {{packageName}}
 
-import com.rarnu.kt.ktor.installPlugin
+import com.rarnu.ktor.installPlugin
 import io.ktor.application.Application
 import io.ktor.http.content.defaultResource
 import io.ktor.http.content.resources
@@ -11,7 +11,11 @@ fun main(args: Array<String>): Unit = io.ktor.server.tomcat.EngineMain.main(args
 
 @Suppress("unused")
 fun Application.module() {
-    installPlugin<{{ProjectName}}Session>(sessionIdentifier = "{{ProjectName}}Session", headers = mapOf("X-Engine" to "Ktor")) { }
+    installPlugin<{{ProjectName}}Session>(
+        useCompress = true,
+        sessionIdentifier = "{{ProjectName}}Session",
+        headers = mapOf("X-Engine" to "Ktor"),
+        redirectHttps = true) { }
     routing {
         resources("web")
         resources("static")
