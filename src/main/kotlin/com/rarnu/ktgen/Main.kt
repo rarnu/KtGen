@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
         UIManager.setLookAndFeel(MetalLookAndFeel())
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
-        `MainForm.kt.tmp`()
+        MainForm()
     } else {
         when(args[0]) {
             // ktor
@@ -22,6 +22,12 @@ fun main(args: Array<String>) {
             "3" -> generateKtorReactProject(args[3], args[1], args[2]) { printResult(it) }
             // kotlin/native
             "4" -> generateKniProject(args[3], args[1], args[2], args[4].split(",").map { it.toInt() }) { printResult(it) }
+            // android
+            "5" -> generateAndroidProject(args[3], args[1], args[2]) { printResult(it) }
+            // swing
+            "6" -> generateSwingProject(args[3], args[1], args[2]) { printResult(it) }
+            // common
+            "7" -> generateCommonProject(args[3], args[1], args[2]) { printResult(it) }
         }
     }
 }

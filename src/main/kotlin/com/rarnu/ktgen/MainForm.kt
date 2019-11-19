@@ -26,8 +26,7 @@ class MainForm : JFrame("KtGen") {
             .addPanel("Native", buildTab(3))
             .addPanel("Android", buildTab(4))
             .addPanel("Swing", buildTab(5))
-            .addPanel("iOS", buildTab(6))
-            .addPanel("Common", buildTab(7))
+            .addPanel("Common", buildTab(6))
             .setIndex(0)
 
         isVisible = true
@@ -70,12 +69,7 @@ class MainForm : JFrame("KtGen") {
             3 -> selectTarget(this) { t -> generateKniProject(dest, pkg, proj, t) { callback(it) } }
             4 -> generateAndroidProject(dest, pkg, proj) { callback(it) }
             5 -> generateSwingProject(dest, pkg, proj) { callback(it) }
-            6 -> {
-                // ios
-            }
-            7 -> {
-                // common
-            }
+            6 -> generateCommonProject(dest, pkg, proj) { callback(it) }
         }
     }
 
