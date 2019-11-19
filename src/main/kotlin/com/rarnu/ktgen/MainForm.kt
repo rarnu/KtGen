@@ -69,9 +69,7 @@ class MainForm : JFrame("KtGen") {
             2 -> generateKtorReactProject(dest, pkg, proj) { callback(it) }
             3 -> selectTarget(this) { t -> generateKniProject(dest, pkg, proj, t) { callback(it) } }
             4 -> generateAndroidProject(dest, pkg, proj) { callback(it) }
-            5 -> {
-                // swing
-            }
+            5 -> generateSwingProject(dest, pkg, proj) { callback(it) }
             6 -> {
                 // ios
             }

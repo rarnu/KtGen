@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
         UIManager.setLookAndFeel(MetalLookAndFeel())
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
-        MainForm()
+        `MainForm.kt.tmp`()
     } else {
         when(args[0]) {
             // ktor

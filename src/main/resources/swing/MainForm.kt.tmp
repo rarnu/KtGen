@@ -1,0 +1,14 @@
+package {{packageName}}
+
+import java.awt.Color
+import javax.swing.JFrame
+
+class MainForm : JFrame("{{projectName}}") {
+    init {
+        contentPane.background = Color.white
+        setSize(500, 500)
+        defaultCloseOperation = EXIT_ON_CLOSE
+        setLocationRelativeTo(null)
+        isVisible = true
+    }
+}
