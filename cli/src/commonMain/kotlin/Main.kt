@@ -23,12 +23,15 @@ fun main(args: Array<String>) = konclikApp(args) {
     metadata {
         name = "KtGen CLI"
         description = "generate kotlin projects"
-        version = "0.1.2"
+        version = "0.1.3"
     }
     newCommand("ktor", "Generate Ktor project", listOpt, 1)
     newCommand("ktnode", "Generate Kotlin/Nodejs project", listOpt, 2)
     newCommand("react", "Generate Ktor/React project", listOpt, 3)
     newCommand("native", "Generate Kotlin/Native project", listNativeOpt, 4)
+    newCommand("android", "Generate Android project", listOpt, 5)
+    newCommand("swing", "Generate Swing project", listOpt, 6)
+    newCommand("common", "Generate Common project", listOpt, 7)
 }
 
 private fun KonclikAppBuilder.newCommand(cmdName: String, cmdDesc: String, cmdOptions: List<Parameter.Option>, mode: Int) = command {
