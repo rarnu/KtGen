@@ -492,30 +492,20 @@ fun generateKniProject(path: String, pkgName: String, projName: String, targets:
                     }.replaceTag("{{target}}") {
                         "macos"
                     }.replaceTag("{{shared}}") {
-                        if (hasMacShared) "sharedLib { {{link}} }"
-                            .replaceTag("{{link}}") {
-                                if (hasKtorclient) "linkerOpts '-L/usr/lib -liconv'" else ""
-                            } else ""
+                        if (hasMacShared) "sharedLib { linkerOpts '-L/usr/lib -liconv' }" else ""
                     }.replaceTag("{{static}}") {
-                        if (hasMacStatic) "staticLib { {{link}} }"
-                            .replaceTag("{{link}}") {
-                                if (hasKtorclient) "linkerOpts '-L/usr/lib -liconv'" else ""
-                            } else ""
+                        if (hasMacStatic) "staticLib { linkerOpts '-L/usr/lib -liconv' }" else ""
                     }.replaceTag("{{executable}}") {
                         if (hasMacExecutable) "executable {\n" +
                                 "                entryPoint 'main'\n" +
-                                "                {{link}}\n" +
-                                "            }".replaceTag("{{link}}") {
-                                    if (hasKtorclient) "linkerOpts '-L/usr/lib -liconv'" else ""
-                                }
+                                "                linkerOpts '-L/usr/lib -liconv'\n" +
+                                "            }"
                         else ""
                     }.replaceTag("{{framework}}") {
                         if (hasMacFramework) "framework {\n" +
                                 "                embedBitcode 'bitcode'\n" +
-                                "                {{link}}\n" +
-                                "            }".replaceTag("{{link}}") {
-                                    if (hasKtorclient) "linkerOpts '-L/usr/lib -liconv'" else ""
-                                }
+                                "                linkerOpts '-L/usr/lib -liconv'\n" +
+                                "            }"
                         else ""
                     }
             }.replaceTag("{{source_macos}}") {
