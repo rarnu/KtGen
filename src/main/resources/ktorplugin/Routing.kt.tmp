@@ -1,0 +1,15 @@
+package {{packageName}}
+
+import io.ktor.application.call
+import io.ktor.response.respond
+import io.ktor.response.respondText
+import io.ktor.routing.Routing
+import io.ktor.routing.get
+
+fun Routing.{{projectName}}Routing() {
+
+    get("/plugin") {
+        call.respond("<html><head></head><body>From Plugin</body></html>".toByteArray())
+    }
+
+}

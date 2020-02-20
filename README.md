@@ -8,6 +8,10 @@
 2. [x] Kotlin/JS 项目，含 nodejs
 3. [x] Ktor + KtReact 整合前后端的项目
 4. [x] Kotlin/Native 项目
+5. [x] Android 项目
+6. [x] Swing 项目 
+7. [x] 通用 Kotlin/JVM 项目
+8. [x] Ktor 插件项目
 
 ![screenshot](https://raw.githubusercontent.com/rarnu/KtGen/master/screenshot/screenshot.png)
 

@@ -28,7 +28,7 @@ fun generateAndroidProject(path: String, pkgName: String, projName: String, call
 
     File("$basePath/build.gradle").writeText(Resource.read("android/build.gradle.tmp"))
     File("$basePath/gradle.properties").writeText(Resource.read("android/gradle.properties.tmp"))
-    File("$basePath/settings.gradle").writeText(Resource.read("android/gradle.properties.tmp"))
+    File("$basePath/settings.gradle").writeText(Resource.read("android/settings.gradle.tmp"))
     File("$appPath/build.gradle").writeText(Resource.read("android/app.build.gradle.tmp"))
     File("$srcPath/AndroidManifest.xml").writeText(Resource.read("android/AndroidManifest.xml.tmp")
         .replaceTag("{{packageName}}") { pkgName })

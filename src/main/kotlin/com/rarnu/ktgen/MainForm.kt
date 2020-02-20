@@ -27,6 +27,7 @@ class MainForm : JFrame("KtGen") {
             .addPanel("Android", buildTab(4))
             .addPanel("Swing", buildTab(5))
             .addPanel("Common", buildTab(6))
+            .addPanel("KtorPlugin", buildTab(7))
             .setIndex(0)
 
         isVisible = true
@@ -70,6 +71,7 @@ class MainForm : JFrame("KtGen") {
             4 -> generateAndroidProject(dest, pkg, proj) { callback(it) }
             5 -> generateSwingProject(dest, pkg, proj) { callback(it) }
             6 -> generateCommonProject(dest, pkg, proj) { callback(it) }
+            7 -> generateKtorPluginProject(dest, pkg, proj) { callback(it) }
         }
     }
 

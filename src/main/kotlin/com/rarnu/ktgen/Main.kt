@@ -28,6 +28,8 @@ fun main(args: Array<String>) {
             "6" -> generateSwingProject(args[3], args[1], args[2]) { printResult(it) }
             // common
             "7" -> generateCommonProject(args[3], args[1], args[2]) { printResult(it) }
+            // ktor plugin
+            "8" -> generateKtorPluginProject(args[3], args[1], args[2]) { printResult(it) }
         }
     }
 }

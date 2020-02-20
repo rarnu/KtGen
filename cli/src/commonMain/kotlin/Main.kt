@@ -11,7 +11,7 @@ private const val OPT_FEATURE = "--feature"
 private val paramPackage = Parameter.Option.Value(OPT_PACKAGE)
 private val paramName = Parameter.Option.Value(OPT_NAME)
 private val paramOutput = Parameter.Option.Value(OPT_OUTPUT)
-private var paramFeature = Parameter.Option.Value(OPT_FEATURE)
+private val paramFeature = Parameter.Option.Value(OPT_FEATURE)
 private val listOpt = listOf(paramPackage, paramName, paramOutput)
 private val listNativeOpt = listOf(paramPackage, paramName, paramOutput, paramFeature)
 
@@ -23,7 +23,7 @@ fun main(args: Array<String>) = konclikApp(args) {
     metadata {
         name = "KtGen CLI"
         description = "generate kotlin projects"
-        version = "0.1.3"
+        version = "1.0.0"
     }
     newCommand("ktor", "Generate Ktor project", listOpt, 1)
     newCommand("ktnode", "Generate Kotlin/Nodejs project", listOpt, 2)
@@ -32,6 +32,7 @@ fun main(args: Array<String>) = konclikApp(args) {
     newCommand("android", "Generate Android project", listOpt, 5)
     newCommand("swing", "Generate Swing project", listOpt, 6)
     newCommand("common", "Generate Common project", listOpt, 7)
+    newCommand("ktorplugin", "Generate Ktor-Plugin project", listOpt, 8)
 }
 
 private fun KonclikAppBuilder.newCommand(cmdName: String, cmdDesc: String, cmdOptions: List<Parameter.Option>, mode: Int) = command {
