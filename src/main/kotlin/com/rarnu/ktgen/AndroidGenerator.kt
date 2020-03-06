@@ -33,7 +33,7 @@ fun generateAndroidProject(path: String, pkgName: String, projName: String, call
     File("$srcPath/AndroidManifest.xml").writeText(Resource.read("android/AndroidManifest.xml.tmp")
         .replaceTag("{{packageName}}") { pkgName })
 
-    File("$srcPath/res/drawable/ic_launcher.png").writeText(Resource.read("android/ic_launcher.png.tmp"))
+    File("$srcPath/res/drawable/ic_launcher.png").writeBytes(Resource.readBytes("android/ic_launcher.png.tmp"))
     File("$srcPath/res/layout/activity_main.xml").writeText(Resource.read("android/activity_main.xml.tmp"))
     File("$srcPath/res/values/strings.xml").writeText(Resource.read("android/strings.xml.tmp")
         .replaceTag("{{projectName}}") { projName })

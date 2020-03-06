@@ -33,7 +33,7 @@ dependencies {
     compile "io.ktor:ktor-server-host-common:$ktor_version"
     compile "io.ktor:ktor-server-sessions:$ktor_version"
     compile "mysql:mysql-connector-java:8.0.15"
-    compile "com.rarnu:ktor-jvm:0.6.0"
+    compile "com.rarnu:ktor-jvm:0.8.0"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }
 

@@ -84,7 +84,7 @@ fun generateKtorReactProject(path: String, pkgName: String, projName: String, ca
         }
     )
     File("$frontPath/public/jquery-2.0.0.min.js").writeText(Resource.read("ktorreact/frontend/jquery-2.0.0.min.js.tmp"))
-    File("$frontPath/public/favicon.ico").writeText(Resource.read("ktorreact/frontend/favicon.ico.tmp"))
+    File("$frontPath/public/favicon.ico").writeBytes(Resource.readBytes("ktorreact/frontend/favicon.ico.tmp"))
     File("$frontPath/public/manifest.json").writeText(Resource.read("ktorreact/frontend/manifest.json.tmp")
         .replaceTag("{{projectName}}") {
             projName
