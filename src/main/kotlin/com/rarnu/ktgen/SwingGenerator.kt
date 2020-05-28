@@ -29,7 +29,7 @@ fun generateSwingProject(path: String, pkgName: String, projName: String, callba
 
     File("$srcPath/kotlin/${pkgName.replace(".", "/")}/Main.kt").writeText(Resource.read("swing/Main.kt.tmp")
         .replaceTag("{{packageName}}") { pkgName})
-    File("$srcPath/kotlin/${pkgName.replace(".", "/")}/MainForm.kt.tmp").writeText(Resource.read("swing/MainForm.kt.tmp")
+    File("$srcPath/kotlin/${pkgName.replace(".", "/")}/MainForm.kt").writeText(Resource.read("swing/MainForm.kt.tmp")
         .replaceTag("{{packageName}}") { pkgName} .replaceTag("{{projectName}}") { projName })
 
     callback(true)
